@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useCryptoStore from "./Store";
-
 import "./App.css";
 import Pagination from "./Pagination";
 
@@ -80,24 +79,24 @@ function App() {
         </svg>
       );
     } else {
-      
-      return <div style={{ width: "12px", height: "12px", marginRight: "8px" }}></div>;
+      return (
+        <div
+          style={{ width: "12px", height: "12px", marginRight: "8px" }}
+        ></div>
+      );
     }
   };
 
-
-
-
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col mt-9 border border-gray-100 rounded">
-        <table className="w-full table-auto border-gray-100">
+      <div className="flex flex-col mt-9   rounded  items-center ...">
+        <table className="w-3/4 table-auto border-gray-100">
           <thead className="bg-slate-100 border-b ">
             <tr className="opacity-40 ">
-              <th className="text-left">Crypto</th>
-              <th className="text-right">Price</th>
-              <th className="text-right">Market Value</th>
-              <th>24h Change</th>
+              <th className="text-left w-2/5" >Crypto</th>
+              <th className="text-right w-1/5">Price</th>
+              <th className="text-right w-1/5">Market Value</th>
+              <th className="w-1/5">24h Change</th>
             </tr>
           </thead>
           <tbody>
@@ -128,6 +127,7 @@ function App() {
                   {formatNumber(parseFloat(crypto.quoteVolume))}
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
+
                 <td className="py-4 flex items-center justify-center">
                   {getChangeIcon(parseFloat(crypto.priceChangePercent))}
                   <span
