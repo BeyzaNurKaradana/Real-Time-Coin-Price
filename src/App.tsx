@@ -4,12 +4,9 @@ import useCryptoStore from "./Store";
 import "./App.css";
 import Pagination from "./Pagination";
 
-function App () {
-  
+function App() {
   const { cryptoData, fetchCryptoData, currentPage, itemsPerPage } =
     useCryptoStore();
-
- 
 
   const getSvgPath = (symbol: string) => {
     const baseSymbol = symbol.replace("USDT", "").toLowerCase();
@@ -32,7 +29,7 @@ function App () {
   const currentData = cryptoData.slice(startIndex, startIndex + itemsPerPage);
 
   useEffect(() => {
-    fetchCryptoData()
+    fetchCryptoData();
     const intervalId = setInterval(fetchCryptoData, 3000);
     return () => clearInterval(intervalId);
   }, []);
@@ -42,6 +39,54 @@ function App () {
     if (change < 0) return "text-red-500";
     return "";
   };
+
+  const getChangeIcon = (change: number) => {
+    if (change > 0) {
+      return (
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-green-500 mr-2"
+        >
+          <path
+            d="M4.5 19.5L19.5 4.5M19.5 4.5L8.25 4.5M19.5 4.5V15.75"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      );
+    } else if (change < 0) {
+      return (
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="text-red-500 mr-2 "
+        >
+          <path
+            d="M4.5 4.5L19.5 19.5M19.5 19.5V8.25M19.5 19.5H8.25"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          ></path>
+        </svg>
+      );
+    } else {
+      
+      return <div style={{ width: "12px", height: "12px", marginRight: "8px" }}></div>;
+    }
+  };
+
+
+
 
   return (
     <div className="container mx-auto">
@@ -67,7 +112,7 @@ function App () {
                     alt={crypto.symbol}
                   />
                   <span className="font-semibold">
-                  {crypto.symbol.replace("USDT", "")}
+                    {crypto.symbol.replace("USDT", "")}
                   </span>
                   <span className="opacity-60">/USDT</span>
                 </td>
@@ -83,8 +128,13 @@ function App () {
                   {formatNumber(parseFloat(crypto.quoteVolume))}
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
-                <td className="py-4">
-                <span className= {`font-semibold ${getChangeColor(parseFloat(crypto.priceChangePercent))}`}>
+                <td className="py-4 flex items-center justify-center">
+                  {getChangeIcon(parseFloat(crypto.priceChangePercent))}
+                  <span
+                    className={`font-semibold ${getChangeColor(
+                      parseFloat(crypto.priceChangePercent)
+                    )}`}
+                  >
                     {parseFloat(crypto.priceChangePercent).toFixed(2)}%
                   </span>
                 </td>
@@ -93,11 +143,9 @@ function App () {
           </tbody>
         </table>
         <div className="pagination">
-          <Pagination/>
+          <Pagination />
         </div>
-        
       </div>
- 
     </div>
   );
 }
