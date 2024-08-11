@@ -12,8 +12,8 @@ function App () {
  
 
   const getSvgPath = (symbol: string) => {
-    const baseSymbol = symbol.replace("USDT", "");
-    return `https://cdn.bilira.co/symbol/svg/${baseSymbol}.svg`;
+    const baseSymbol = symbol.replace("USDT", "").toLowerCase();
+    return `https://cryptofonts.com/img/SVG/${baseSymbol}.svg`;
   };
 
   const formatNumber = (num: number) => {
@@ -82,13 +82,12 @@ function App () {
             ))}
           </tbody>
         </table>
-        <div className="pagination mt-12">
+        <div className="pagination">
           <Pagination/>
         </div>
         
       </div>
  
-      {/* https://cryptofonts.com/img/SVG/doge.svg */}
     </div>
   );
 }
