@@ -37,6 +37,12 @@ function App () {
     return () => clearInterval(intervalId);
   }, []);
 
+  const getChangeColor = (change: number) => {
+    if (change > 0) return "text-green-500";
+    if (change < 0) return "text-red-500";
+    return "";
+  };
+
   return (
     <div className="container mx-auto">
       <div className="flex flex-col mt-9 border border-gray-100 rounded">
@@ -60,10 +66,12 @@ function App () {
                     src={getSvgPath(crypto.symbol)}
                     alt={crypto.symbol}
                   />
+                  <span className="font-semibold">
                   {crypto.symbol.replace("USDT", "")}
+                  </span>
                   <span className="opacity-60">/USDT</span>
                 </td>
-                <td className="py-4 text-right">
+                <td className="py-4 text-right font-semibold">
                   {parseFloat(crypto.lastPrice).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -71,12 +79,14 @@ function App () {
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
 
-                <td className="py-4 text-right">
+                <td className="py-4 text-right font-semibold">
                   {formatNumber(parseFloat(crypto.quoteVolume))}
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
                 <td className="py-4">
-                  {parseFloat(crypto.priceChangePercent).toFixed(2)}%
+                <span className= {`font-semibold ${getChangeColor(parseFloat(crypto.priceChangePercent))}`}>
+                    {parseFloat(crypto.priceChangePercent).toFixed(2)}%
+                  </span>
                 </td>
               </tr>
             ))}
