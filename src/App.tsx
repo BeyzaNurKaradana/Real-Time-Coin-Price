@@ -99,7 +99,7 @@ function App() {
               <th className="w-1/5">24h Change</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="border-2">
             {currentData.map((crypto) => (
               <tr className="text-center" key={crypto.symbol}>
                 <td className="py-4 text-left flex leading-5">
@@ -110,10 +110,10 @@ function App() {
                     src={getSvgPath(crypto.symbol)}
                     alt={crypto.symbol}
                   />
-                  <span className="font-semibold">
+                  <span className="font-bold">
                     {crypto.symbol.replace("USDT", "")}
                   </span>
-                  <span className="opacity-60">/USDT</span>
+                  <span className="opacity-30 font-bold" >/USDT</span>
                 </td>
                 <td className="py-4 text-right font-semibold">
                   {parseFloat(crypto.lastPrice).toLocaleString("en-US", {
@@ -142,10 +142,13 @@ function App() {
             ))}
           </tbody>
         </table>
-        <div className="pagination">
+        {/* <div className="pagination mt-2">
+          <Pagination />
+        </div> */}
+      </div>
+      <div className="pagination mt-2 w-3/4 mx-auto">
           <Pagination />
         </div>
-      </div>
     </div>
   );
 }
