@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import useCryptoStore from "./Store";
 
 import "./App.css";
+import Pagination from "./Pagination";
 
 function App () {
   
@@ -81,6 +82,9 @@ function App () {
             ))}
           </tbody>
         </table>
+        <div className="pagination mt-12">
+          <Pagination/>
+        </div>
         
       </div>
  
