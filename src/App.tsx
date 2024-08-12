@@ -9,6 +9,8 @@ function App() {
 
     const [previousPrices, setPreviousPrices] = useState<{ [key: string]: number }>({});
     const [priceChangeColors, setPriceChangeColors] = useState<{ [key: string]: string }>({});
+    const [previousVolumes, setPreviousVolumes] = useState<{ [key: string]: number }>({});
+    const [volumeChangeColors, setVolumeChangeColors] = useState<{ [key: string]: string }>({});
 
   const getSvgPath = (symbol: string) => {
     const baseSymbol = symbol.replace("USDT", "").toLowerCase();
@@ -43,6 +45,8 @@ function App() {
     currentData.forEach((crypto) => {
       const lastPrice = parseFloat(crypto.lastPrice);
       const prevPrice = previousPrices[crypto.symbol];
+      const lastVolume = parseFloat(crypto.quoteVolume);
+      const prevVolume = previousVolumes[crypto.symbol];
 
       if (prevPrice !== undefined && prevPrice !== lastPrice) {
         const newColor = lastPrice > prevPrice ? "text-green-500" : "text-red-500";
@@ -54,7 +58,23 @@ function App() {
         setTimeout(() => {
           setPriceChangeColors((prevColors) => ({
             ...prevColors,
-            [crypto.symbol]: "", // Rengi sıfırla
+            [crypto.symbol]: "", // Reset color
+          }));
+        }, 500);
+      }
+
+
+      if (prevVolume !== undefined && prevVolume !== lastVolume) {
+        const newColor = lastVolume > prevVolume ? "text-green-500" : "text-red-500";
+        setVolumeChangeColors((prevColors) => ({
+          ...prevColors,
+          [crypto.symbol]: newColor,
+        }));
+
+        setTimeout(() => {
+          setVolumeChangeColors((prevColors) => ({
+            ...prevColors,
+            [crypto.symbol]: "", // Reset color
           }));
         }, 500);
       }
@@ -62,6 +82,11 @@ function App() {
       setPreviousPrices((prevPrices) => ({
         ...prevPrices,
         [crypto.symbol]: lastPrice,
+      }));
+
+      setPreviousVolumes((prevVolumes) => ({
+        ...prevVolumes,
+        [crypto.symbol]: lastVolume,
       }));
     });
   }, [currentData]);
@@ -162,7 +187,9 @@ function App() {
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
 
-                <td className="py-4 text-right font-semibold">
+                <td className={`py-4 text-right font-semibold transition-colors duration-500 ${
+                    volumeChangeColors[crypto.symbol] || ""
+                  }`}>
                   {formatNumber(parseFloat(crypto.quoteVolume))}
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
