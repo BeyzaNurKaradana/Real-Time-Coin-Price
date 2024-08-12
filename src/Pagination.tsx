@@ -1,10 +1,21 @@
+
 import React from 'react';
 import useCryptoStore from './Store';
 import "./index.css"
 
-const Pagination = () => {
+/**
+ * Pagination component for navigating through pages of cryptocurrency data.
+ * @component
+ * @returns {JSX.Element} The rendered Pagination component.
+ */
+const Pagination: React.FC = () => {
   const { currentPage, totalPages, setPage } = useCryptoStore();
 
+  /**
+   * Generates an array of page numbers for pagination, including ellipses to indicate skipped pages.
+   * @function generatePageNumbers
+   * @returns {(number|string)[]} An array of page numbers and ellipses.
+   */
   const generatePageNumbers = () => {
     const pages = [];
     const maxPageButtons = 3; 
@@ -15,19 +26,16 @@ const Pagination = () => {
       }
     } else {
       if (currentPage <= maxPageButtons - 1) {
-
         for (let i = 1; i <= maxPageButtons; i++) {
           pages.push(i);
         }
         pages.push('...', totalPages);
       } else if (currentPage >= totalPages - 1) {
-
         pages.push(1, '...');
         for (let i = totalPages - (maxPageButtons - 1); i <= totalPages; i++) {
           pages.push(i);
         }
       } else {
-
         pages.push(1, '...');
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
           pages.push(i);
@@ -38,6 +46,11 @@ const Pagination = () => {
     return pages;
   };
 
+  /**
+   * Handles the change event for the page select dropdown, updating the current page.
+   * @function handlePageChange
+   * @param {React.ChangeEvent<HTMLSelectElement>} event - The change event from the select element.
+   */
   const handlePageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPage(Number(event.target.value));
   };
@@ -70,4 +83,4 @@ const Pagination = () => {
   );
 };
 
-export default Pagination; 
+export default Pagination;

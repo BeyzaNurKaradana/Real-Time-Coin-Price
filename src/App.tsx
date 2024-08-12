@@ -1,28 +1,55 @@
 
+
 import React, { useState, useEffect } from 'react';
 import useCryptoStore from './Store';
 import Pagination from './Pagination';
 import PriceChangeHandler from './PriceChangeHandler';
 import CryptoTable from './CryptoTable';
-import Modal from './Modal'; // Modal import edildi
+import Modal from './Modal'; 
 
+/**
+ * Main application component for displaying cryptocurrency data.
+ * @component
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
-  const [isModalOpen, setModalOpen] = useState(true); // Modal'ın açık olup olmadığını kontrol eden state
+  const [isModalOpen, setModalOpen] = useState(true); 
 
   const { cryptoData, fetchCryptoData, currentPage, itemsPerPage } =
     useCryptoStore();
 
+  /**
+   * Handles price and volume change colors based on the current data.
+   * @function PriceChangeHandler
+   * @param {Object} params - Parameters for PriceChangeHandler.
+   * @param {any[]} params.cryptoData - Array of cryptocurrency data.
+   * @param {number} params.currentPage - Current page number for pagination.
+   * @param {number} params.itemsPerPage - Number of items per page.
+   * @returns {Object} An object containing priceChangeColors and volumeChangeColors.
+   */
   const { priceChangeColors, volumeChangeColors } = PriceChangeHandler({
     cryptoData,
     currentPage,
     itemsPerPage,
   });
 
+  /**
+   * Generates the SVG path for a given cryptocurrency symbol.
+   * @function getSvgPath
+   * @param {string} symbol - The cryptocurrency symbol.
+   * @returns {string} The URL path to the SVG image.
+   */
   const getSvgPath = (symbol: string) => {
     const baseSymbol = symbol.replace('USDT', '').toLowerCase();
     return `https://cryptofonts.com/img/SVG/${baseSymbol}.svg`;
   };
 
+  /**
+   * Formats a number to a readable string with suffixes for large numbers.
+   * @function formatNumber
+   * @param {number} num - The number to format.
+   * @returns {string} The formatted number with a suffix.
+   */
   const formatNumber = (num: number) => {
     if (num >= 1e12) {
       return (num / 1e12).toFixed(2) + 'T';
@@ -42,14 +69,26 @@ function App() {
     fetchCryptoData();
     const intervalId = setInterval(fetchCryptoData, 5000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [fetchCryptoData]);
 
+  /**
+   * Determines the color class for a given price change percentage.
+   * @function getChangeColor
+   * @param {number} change - The price change percentage.
+   * @returns {string} The color class for the price change.
+   */
   const getChangeColor = (change: number) => {
     if (change > 0) return 'text-green-500';
     if (change < 0) return 'text-red-500';
     return '';
   };
 
+  /**
+   * Returns the appropriate icon based on the price change percentage.
+   * @function getChangeIcon
+   * @param {number} change - The price change percentage.
+   * @returns {JSX.Element} The icon for the price change.
+   */
   const getChangeIcon = (change: number) => {
     if (change > 0) {
       return (
@@ -124,5 +163,6 @@ function App() {
 }
 
 export default App;
+
 
 

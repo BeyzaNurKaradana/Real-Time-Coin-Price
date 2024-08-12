@@ -1,11 +1,32 @@
+
 import { useEffect, useState } from "react";
 
 interface Props {
+  /**
+   * The array of cryptocurrency data.
+   * @type {any[]}
+   */
   cryptoData: any[];
+
+  /**
+   * The current page number for pagination.
+   * @type {number}
+   */
   currentPage: number;
+
+  /**
+   * The number of items displayed per page.
+   * @type {number}
+   */
   itemsPerPage: number;
 }
 
+/**
+ * Handles price changes and determines the color to display based on price fluctuations.
+ * @component
+ * @param {Props} props - The properties for the component.
+ * @returns {{ priceChangeColors: { [key: string]: string } }} An object containing price change colors for each cryptocurrency.
+ */
 const PriceChangeHandler: React.FC<Props> = ({
   cryptoData,
   currentPage,

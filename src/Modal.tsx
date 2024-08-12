@@ -1,10 +1,28 @@
+
+
 import React from "react";
 
 interface ModalProps {
+  /**
+   * Determines if the modal is open or closed.
+   * @type {boolean}
+   */
   isOpen: boolean;
+
+  /**
+   * Function to call when the modal needs to be closed.
+   * @function
+   * @returns {void}
+   */
   onClose: () => void;
 }
 
+/**
+ * A modal component used to display important information or messages.
+ * @component
+ * @param {ModalProps} props - The properties to configure the modal.
+ * @returns {JSX.Element | null} The rendered modal component, or null if not open.
+ */
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -22,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           kısmında yer alan SVG bağlantısının bazı coinleri göstermediğini fark
           ettim. Bu nedenle, bu kaynağı kullandım: https://cryptofonts.com/icons.html; burada da bazı
           ikonlar eksik ancak eksiklikler önceki kaynaktan daha az. Proje
-          gerekliliklerinden bazılarını ( JSDoc, unit test vb.) gerçekleştiremedim,
+          gerekliliklerinden bazılarını ( unit test vb.) gerçekleştiremedim,
           özellikle coin grafiklerini oluşturamadım. Değerlendirilmeye
           alınmazsam bile, kodlardaki yanlışlıkları ve eksiklerimi öğrenebilmem
           adına bazı kısımları revize edip bana tekrar gönderirseniz çok sevinirim.
