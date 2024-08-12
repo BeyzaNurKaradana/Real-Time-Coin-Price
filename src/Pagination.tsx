@@ -1,6 +1,6 @@
 import React from 'react';
 import useCryptoStore from './Store';
-import "./Pagination.css"
+import "./index.css"
 
 const Pagination = () => {
   const { currentPage, totalPages, setPage } = useCryptoStore();

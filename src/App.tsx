@@ -1,12 +1,14 @@
 
-import React, { useEffect } from "react";
-import useCryptoStore from "./Store";
-import Pagination from "./Pagination";
-import PriceChangeHandler from "./PriceChangeHandler";
-import CryptoTable from "./CryptoTable";
-
+import React, { useState, useEffect } from 'react';
+import useCryptoStore from './Store';
+import Pagination from './Pagination';
+import PriceChangeHandler from './PriceChangeHandler';
+import CryptoTable from './CryptoTable';
+import Modal from './Modal'; // Modal import edildi
 
 function App() {
+  const [isModalOpen, setModalOpen] = useState(true); // Modal'ın açık olup olmadığını kontrol eden state
+
   const { cryptoData, fetchCryptoData, currentPage, itemsPerPage } =
     useCryptoStore();
 
@@ -17,17 +19,17 @@ function App() {
   });
 
   const getSvgPath = (symbol: string) => {
-    const baseSymbol = symbol.replace("USDT", "").toLowerCase();
+    const baseSymbol = symbol.replace('USDT', '').toLowerCase();
     return `https://cryptofonts.com/img/SVG/${baseSymbol}.svg`;
   };
 
   const formatNumber = (num: number) => {
     if (num >= 1e12) {
-      return (num / 1e12).toFixed(2) + "T";
+      return (num / 1e12).toFixed(2) + 'T';
     } else if (num >= 1e9) {
-      return (num / 1e9).toFixed(2) + "B";
+      return (num / 1e9).toFixed(2) + 'B';
     } else if (num >= 1e6) {
-      return (num / 1e6).toFixed(2) + "M";
+      return (num / 1e6).toFixed(2) + 'M';
     } else {
       return num.toFixed(2);
     }
@@ -43,9 +45,9 @@ function App() {
   }, []);
 
   const getChangeColor = (change: number) => {
-    if (change > 0) return "text-green-500";
-    if (change < 0) return "text-red-500";
-    return "";
+    if (change > 0) return 'text-green-500';
+    if (change < 0) return 'text-red-500';
+    return '';
   };
 
   const getChangeIcon = (change: number) => {
@@ -76,7 +78,7 @@ function App() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-red-500 mr-2 "
+          className="text-red-500 mr-2"
         >
           <path
             d="M4.5 4.5L19.5 19.5M19.5 19.5V8.25M19.5 19.5H8.25"
@@ -90,15 +92,20 @@ function App() {
     } else {
       return (
         <div
-          style={{ width: "12px", height: "12px", marginRight: "8px" }}
+          style={{ width: '12px', height: '12px', marginRight: '8px' }}
         ></div>
       );
     }
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex flex-col mt-9 rounded items-center">
+    <div className="container mx-auto relative">
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-50">
+          <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+        </div>
+      )}
+      <div className={`flex flex-col mt-9 rounded items-center ${isModalOpen ? 'opacity-0 pointer-events-none' : ''}`}>
         <CryptoTable
           currentData={currentData}
           priceChangeColors={priceChangeColors}
@@ -109,7 +116,7 @@ function App() {
           getChangeIcon={getChangeIcon}
         />
       </div>
-      <div className="pagination mt-2 w-3/4 mx-auto">
+      <div className={`pagination mt-2 w-3/4 mx-auto ${isModalOpen ? 'opacity-0 pointer-events-none' : ''}`}>
         <Pagination />
       </div>
     </div>
@@ -117,16 +124,5 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
- 
-
-
- 
-
 
 
