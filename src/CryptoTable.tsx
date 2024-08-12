@@ -28,7 +28,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({
             <tr className="opacity-40 border-2">
               <th className="text-left w-2/5">Crypto</th>
               <th className="text-right w-1/5">Price</th>
-              <th className="text-right w-1/5 market-value ">Market Value</th>
+              <th className="text-right w-1/5 market-title ">Market Value</th>
               <th className="w-1/5">24h Change</th>
             </tr>
           </thead>

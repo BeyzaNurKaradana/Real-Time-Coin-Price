@@ -1,4 +1,4 @@
-@tailwind base;
+ @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -59,9 +59,31 @@
 
 
 @media (max-width: 540px) {
-  .market-value {
+  .market-value, .market-title {
     display: none;
   }
 
+  .pagination-dropdown {
+    height: 100%;
+    max-width: 200px; /* Ekran boyutuna göre ayarlayın */
+  }
+
+  .pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
   
-}
+} 
+
+
+
+
+
+
+
+
+ 
+
+
