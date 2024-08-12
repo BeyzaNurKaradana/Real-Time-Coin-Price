@@ -7,6 +7,9 @@ function App() {
   const { cryptoData, fetchCryptoData, currentPage, itemsPerPage } =
     useCryptoStore();
 
+    const [previousPrices, setPreviousPrices] = useState<{ [key: string]: number }>({});
+    const [priceChangeColors, setPriceChangeColors] = useState<{ [key: string]: string }>({});
+
   const getSvgPath = (symbol: string) => {
     const baseSymbol = symbol.replace("USDT", "").toLowerCase();
     return `https://cryptofonts.com/img/SVG/${baseSymbol}.svg`;
@@ -32,6 +35,40 @@ function App() {
     const intervalId = setInterval(fetchCryptoData, 3000);
     return () => clearInterval(intervalId);
   }, []);
+
+
+
+
+  useEffect(() => {
+    currentData.forEach((crypto) => {
+      const lastPrice = parseFloat(crypto.lastPrice);
+      const prevPrice = previousPrices[crypto.symbol];
+
+      if (prevPrice !== undefined && prevPrice !== lastPrice) {
+        const newColor = lastPrice > prevPrice ? "text-green-500" : "text-red-500";
+        setPriceChangeColors((prevColors) => ({
+          ...prevColors,
+          [crypto.symbol]: newColor,
+        }));
+
+        setTimeout(() => {
+          setPriceChangeColors((prevColors) => ({
+            ...prevColors,
+            [crypto.symbol]: "", // Rengi sıfırla
+          }));
+        }, 500);
+      }
+
+      setPreviousPrices((prevPrices) => ({
+        ...prevPrices,
+        [crypto.symbol]: lastPrice,
+      }));
+    });
+  }, [currentData]);
+
+
+
+
 
   const getChangeColor = (change: number) => {
     if (change > 0) return "text-green-500";
@@ -89,7 +126,7 @@ function App() {
 
   return (
     <div className="container mx-auto">
-      <div className="flex flex-col mt-9   rounded  items-center ...">
+      <div className="flex flex-col mt-9   rounded  items-center">
         <table className="w-3/4 table-auto border-gray-100">
           <thead className="bg-slate-100 border-b ">
             <tr className="opacity-40 ">
@@ -115,7 +152,9 @@ function App() {
                   </span>
                   <span className="opacity-30 font-bold" >/USDT</span>
                 </td>
-                <td className="py-4 text-right font-semibold">
+                <td className={`py-4 text-right font-semibold transition-colors duration-500 ${
+                    priceChangeColors[crypto.symbol] || ""
+                  }`}>
                   {parseFloat(crypto.lastPrice).toLocaleString("en-US", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
@@ -142,9 +181,6 @@ function App() {
             ))}
           </tbody>
         </table>
-        {/* <div className="pagination mt-2">
-          <Pagination />
-        </div> */}
       </div>
       <div className="pagination mt-2 w-3/4 mx-auto">
           <Pagination />
@@ -154,3 +190,10 @@ function App() {
 }
 
 export default App;
+ 
+
+
+ 
+
+
+
