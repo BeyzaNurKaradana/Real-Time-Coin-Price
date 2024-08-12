@@ -25,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           gerekliliklerinden bazılarını ( JSDoc, unit test vb.) gerçekleştiremedim,
           özellikle coin grafiklerini oluşturamadım. Değerlendirilmeye
           alınmazsam bile, kodlardaki yanlışlıkları ve eksiklerimi öğrenebilmem
-          adına revize edip bana tekrar gönderirseniz çok sevinirim.
+          adına bazı kısımları revize edip bana tekrar gönderirseniz çok sevinirim.
           <br />
           <p className="text-end mt-2">
             Teşekkür ederim, <br /> Beyza Nur Karadana.{" "}
