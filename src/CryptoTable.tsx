@@ -25,10 +25,10 @@ const CryptoTable: React.FC<CryptoTableProps> = ({
 
         <table className="w-3/4 table-auto border-gray-100 ">
           <thead className="bg-slate-100 border-b">
-            <tr className="opacity-40">
+            <tr className="opacity-40 border-2">
               <th className="text-left w-2/5">Crypto</th>
               <th className="text-right w-1/5">Price</th>
-              <th className="text-right w-1/5">Market Value</th>
+              <th className="text-right w-1/5 market-value ">Market Value</th>
               <th className="w-1/5">24h Change</th>
             </tr>
           </thead>
@@ -60,7 +60,7 @@ const CryptoTable: React.FC<CryptoTableProps> = ({
                   <span className="text-xs opacity-70">USDT</span>
                 </td>
                 <td
-                  className="py-4 text-right font-semibold "
+                  className="py-4 text-right font-semibold market-value "
                 >
                   {formatNumber(parseFloat(crypto.quoteVolume))}
                   <span className="text-xs opacity-70">USDT</span>

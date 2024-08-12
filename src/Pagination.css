@@ -3,65 +3,22 @@
 @tailwind utilities;
 
 
-  
- /*   .pagination {
-
-    display: flex;
-
-    justify-content: end; 
-    gap: 8px;
-    padding: 10px; 
-  }
-  
-  .pagination-dropdown {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .pagination-buttons {
-    display: flex;
-    gap: 8px;
-  }
-  
-  .pagination-button {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .pagination-button.active {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
-  
-  .pagination span {
-    padding: 5px 10px;
-    color: #ccc;
-  }
-    */
 
 
-    /* Pagination container */
 .pagination {
   position: sticky;
   bottom: 0;
-  right: 10px; /* Sağ kenardan uzaklık */
+  right: 10px; 
   display: flex;
-  align-items: center; /* Butonları dikey olarak ortalar */
-  justify-content: flex-end; /* Butonları sağa hizalar */
+  align-items: center; 
+  justify-content: flex-end; 
   gap: 8px;
   padding: 10px;
-  background-color: #fff; /* Arka plan rengini ayarlayın */
-  z-index: 100; /* Diğer içeriklerin üstünde görünmesini sağlar */
+  background-color: #fff; 
+  z-index: 100; 
 }
 
-/* Dropdown styling */
+
 .pagination-dropdown {
   padding: 5px 10px;
   border: 1px solid #ccc;
@@ -70,33 +27,41 @@
   cursor: pointer;
 }
 
-/* Pagination buttons container */
 .pagination-buttons {
   display: flex;
   gap: 8px;
 }
 
-/* Individual pagination button */
+
 .pagination-button {
   padding: 5px 10px;
   border: 1px solid #ccc;
   background-color: #fff;
   cursor: pointer;
   border-radius: 5px;
-  margin: 0; /* Margin değerini sıfırlayın */
+  margin: 0; 
 }
 
-/* Active pagination button */
+
 .pagination-button.active {
   background-color: #007bff;
   color: #fff;
   border-color: #007bff;
 }
 
-/* Ellipsis styling */
+
 .pagination span {
   padding: 5px 10px;
   color: #ccc;
 }
 
 
+
+
+@media (max-width: 540px) {
+  .market-value {
+    display: none;
+  }
+
+  
+}
